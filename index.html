@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f0">
+  <meta name="description" content="Die persönliche Startseite von [Dein Name].">
+  <title>Milan – persönliche Startseite</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --paper: #f5f5f0;
+      --surface: #fff;
+      --ink: #202a26;
+      --muted: #52615a;
+      --line: #d8ded8;
+      --accent: #20b581ff;
+      --accent-ink: #126747;
+      --accent-soft: #e4f5ee;
+      --radius: 1.25rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.8;
+    }
+
+    a {
+      color: var(--accent-ink);
+    }
+
+    a:focus-visible {
+      outline: 3px solid #b35b21;
+      outline-offset: 4px;
+      border-radius: 3px;
+    }
+
+    .page {
+      width: min(100% - 2rem, 940px);
+      margin-inline: auto;
+    }
+
+    .site-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding-block: 1.25rem;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wordmark {
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+      text-decoration: none;
+    }
+
+    .site-header nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+    }
+
+    .site-header nav a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-decoration: none;
+    }
+
+    .site-header nav a:hover,
+    .site-header nav a:focus-visible {
+      color: var(--accent-ink);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    main {
+      padding-block: clamp(2rem, 6vw, 5rem);
+    }
+
+    .intro {
+      padding-bottom: clamp(3rem, 8vw, 6rem);
+    }
+
+    .eyebrow,
+    .section-label {
+      margin: 0 0 0.85rem;
+      color: var(--accent-ink);
+      font-size: 0.76rem;
+      font-weight: 750;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 12ch;
+      margin-bottom: 1rem;
+      font-size: clamp(2.6rem, 7vw, 5rem);
+      letter-spacing: -0.065em;
+      line-height: 1.02;
+    }
+
+    .intro-copy p:not(.eyebrow) {
+      max-width: 58ch;
+      margin-bottom: 1.1rem;
+      color: var(--muted);
+    }
+
+    section {
+      padding-block: clamp(3rem, 7vw, 4.5rem);
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 1rem;
+    }
+
+    h2 {
+      margin-bottom: 0.8rem;
+      font-size: clamp(1.7rem, 4vw, 2.3rem);
+      letter-spacing: -0.04em;
+      line-height: 1.2;
+    }
+
+    .section-intro {
+      max-width: 56ch;
+      margin-bottom: 2rem;
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    caption {
+      padding: 1.1rem 1.15rem 0.65rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: left;
+    }
+
+    th,
+    td {
+      padding: 1rem 1.15rem;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    tbody tr {
+      transition: background-color 150ms ease;
+    }
+
+    tbody tr:hover {
+      background: rgb(32 181 129 / 12%);
+    }
+
+    td:first-child {
+      color: var(--accent-ink);
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: inherit;
+      text-decoration: none;
+      box-shadow: 0 5px 18px rgb(32 42 38 / 7%);
+      transition: transform 160ms ease, box-shadow 160ms ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgb(32 42 38 / 14%);
+    }
+
+    .card:focus-visible {
+      outline-offset: 3px;
+    }
+
+    .card figure {
+      margin: 0;
+      overflow: hidden;
+      background: var(--accent-soft);
+    }
+
+    .card svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 10;
+    }
+
+    .card-copy {
+      flex: 1;
+      padding: 1.2rem 1.2rem 1.4rem;
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.91rem;
+    }
+
+    .site-footer {
+      padding-block: 1.5rem 2.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    @media (max-width: 720px) {
+      .gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .site-header nav {
+        gap: 0.9rem;
+      }
+
+      th,
+      td {
+        padding: 0.7rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="wordmark" href="#start">[Dein Name]</a>
+      <nav aria-label="Hauptnavigation">
+        <a href="#weg">Mein Weg</a>
+        <a href="#lieblingsorte">Lieblingsorte</a>
+      </nav>
+    </header>
+
+    <main id="start">
+      <div class="intro">
+        <div class="intro-copy">
+          <p class="eyebrow">Hallo, ich bin</p>
+          <h1>Milan</h1>
+          <p>Ich interessiere mich dafür, wie Menschen ihre Umgebung wahrnehmen und gestalten. Besonders gern verbinde ich Neugier, gute Fragen und einen Blick für die Details.</p>
+          <p>Hier sammle ich ein paar Stationen meines Wegs und Orte, die mich inspirieren. Schön, dass du vorbeischaust.</p>
+        </div>
+      </div>
+
+      <section id="weg" aria-labelledby="weg-titel">
+        <p class="section-label">Ein kurzer Überblick</p>
+        <h2 id="weg-titel">Mein Weg</h2>
+        <p class="section-intro">Sechs kleine Wegmarken – die Angaben kannst du einfach durch deine eigenen Stationen ersetzen.</p>
+        <div class="table-wrap">
+          <table>
+            <caption>Ausgewählte Stationen</caption>
+            <thead>
+              <tr>
+                <th scope="col">Jahr</th>
+                <th scope="col">Station</th>
+                <th scope="col">Ort</th>
+                <th scope="col">Stichwort</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>2026</td><td>Neues Kapitel</td><td>[Ort]</td><td>Neugier</td></tr>
+              <tr><td>2025</td><td>Studium &amp; Projekte</td><td>[Ort]</td><td>Entdecken</td></tr>
+              <tr><td>2024</td><td>Ein Perspektivwechsel</td><td>[Ort]</td><td>Aufbrechen</td></tr>
+              <tr><td>2023</td><td>Erste eigene Ideen</td><td>[Ort]</td><td>Ausprobieren</td></tr>
+              <tr><td>2022</td><td>Neue Wege</td><td>[Ort]</td><td>Lernen</td></tr>
+              <tr><td>2021</td><td>Ein Anfang</td><td>[Ort]</td><td>Losgehen</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="lieblingsorte" aria-labelledby="orte-titel">
+        <p class="section-label">Zum Weiterstöbern</p>
+        <h2 id="orte-titel">Draußen &amp; online</h2>
+        <p class="section-intro">Drei offene Türen zu Karten, Landschaften und Bildern unserer Erde.</p>
+        <div class="gallery">
+          <a class="card" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">
+            <figure>
+              <svg viewBox="0 0 480 300" role="img" aria-labelledby="map-title" xmlns="http://www.w3.org/2000/svg">
+                <title id="map-title">Abstrakte Karte mit Wegen und grünen Flächen</title>
+                <rect width="480" height="300" fill="#e6eee5"/>
+                <path d="M0 54 115 22l98 37 109-35 158 39v83l-108 34-92-22-119 50L0 169Z" fill="#d1e0ca"/>
+                <path d="m-12 233 101-73 77 31 84-82 75 34 72-66 94 24" fill="none" stroke="#fffdf6" stroke-width="18"/>
+                <path d="m12 284 92-73 87 21 93-91 87 32 74-54 50 13" fill="none" stroke="#c58b60" stroke-width="5"/>
+                <path d="m114 0 27 300M303 0l-24 300" fill="none" stroke="#fffdf6" stroke-width="9"/>
+                <circle cx="248" cy="143" r="11" fill="#20b581" stroke="#fff" stroke-width="5"/>
+              </svg>
+            </figure>
+            <div class="card-copy">
+              <h3>OpenStreetMap</h3>
+              <p>Eine freie Karte, die von Menschen überall auf der Welt gemeinsam entsteht.</p>
+            </div>
+          </a>
+
+          <a class="card" href="https://earthobservatory.nasa.gov/" target="_blank" rel="noopener noreferrer">
+            <figure>
+              <svg viewBox="0 0 480 300" role="img" aria-labelledby="earth-title" xmlns="http://www.w3.org/2000/svg">
+                <title id="earth-title">Stilisierte Erde unter einem Sternenhimmel</title>
+                <rect width="480" height="300" fill="#203b52"/>
+                <circle cx="68" cy="47" r="2" fill="#fff"/>
+                <circle cx="392" cy="50" r="3" fill="#fff"/>
+                <circle cx="338" cy="113" r="2" fill="#fff"/>
+                <circle cx="119" cy="109" r="3" fill="#f1d69c"/>
+                <circle cx="244" cy="48" r="2" fill="#fff"/>
+                <circle cx="254" cy="205" r="118" fill="#6eaa91"/>
+                <path d="M165 140c19-27 35-12 50-32 14-18 35-17 48 0l-9 29 25 14-17 29-41 3-19 30-31-13 8-29-29-8Zm111-46 34-20 37 17-7 28-27 3-15 21-19-12Zm30 102 32-17 24 17-18 31-33 18-18-22Z" fill="#d6e3b6"/>
+                <path d="M157 198c34 20 61 34 97 33 35-1 65-15 92-36" fill="none" stroke="#a7d2c0" stroke-width="5" opacity=".75"/>
+                <circle cx="254" cy="205" r="118" fill="none" stroke="#a7d2c0" stroke-width="2"/>
+              </svg>
+            </figure>
+            <div class="card-copy">
+              <h3>NASA Earth Observatory</h3>
+              <p>Unser Planet aus der Vogelperspektive – in Bildern und Geschichten.</p>
+            </div>
+          </a>
+
+          <a class="card" href="https://commons.wikimedia.org/wiki/Category:Landscapes" target="_blank" rel="noopener noreferrer">
+            <figure>
+              <svg viewBox="0 0 480 300" role="img" aria-labelledby="landscape-title" xmlns="http://www.w3.org/2000/svg">
+                <title id="landscape-title">Berglandschaft im warmen Abendlicht</title>
+                <rect width="480" height="300" fill="#f1d9b5"/>
+                <circle cx="356" cy="83" r="36" fill="#d48757"/>
+                <path d="m0 225 117-135 77 89 79-112 132 158 75-77v152H0Z" fill="#748b78"/>
+                <path d="m117 90 32 73-32-24-22 26Zm156-23 38 59-39-23-25 25-27-11Z" fill="#f7f0df"/>
+                <path d="m0 244 144-63 107 39 102-59 127 47v92H0Z" fill="#425f50"/>
+                <path d="M0 272c83-24 158-16 235 3 75 19 161 17 245-6v31H0Z" fill="#d0a36c"/>
+              </svg>
+            </figure>
+            <div class="card-copy">
+              <h3>Landschaften entdecken</h3>
+              <p>Eine Sammlung freier Bilder von Landschaften aus aller Welt.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Mit Ruhe gestaltet · [Dein Name] · <span id="jahr">2026</span></p>
+    </footer>
+  </div>
+</body>
+</html>
