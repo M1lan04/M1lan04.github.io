@@ -1,0 +1,26 @@
+[
+  {
+    "category": "Stadt & Klima",
+    "title": "Stadtgrün auf der Karte sichtbar machen",
+    "date": "2026-10-13",
+    "summary": "Eine thematische Webkarte kann zeigen, wo Parks und Bäume liegen und welche Wohngebiete nur wenige Grünflächen in ihrer Nähe haben. So werden räumliche Unterschiede leichter verständlich.",
+    "image": "assets/news/stadtgruen.svg",
+    "imageAlt": "Stilisierter Stadtplan mit grünen Parks zwischen Wohnblöcken"
+  },
+  {
+    "category": "Satellitendaten",
+    "title": "Landschaft im Zeitvergleich beobachten",
+    "date": "2026-10-08",
+    "summary": "Wer Satellitenbilder aus verschiedenen Jahren vergleicht, kann Veränderungen an Siedlungsrändern, Wäldern und Gewässern entdecken. Der Zeitvergleich macht aus einzelnen Aufnahmen eine räumliche Geschichte.",
+    "image": "assets/news/satellitenvergleich.svg",
+    "imageAlt": "Zwei Satellitenbilder einer Landschaft im Vorher-und-Nachher-Vergleich"
+  },
+  {
+    "category": "Offene Geodaten",
+    "title": "Gemeinsam bessere Karten gestalten",
+    "date": "2026-10-02",
+    "summary": "Offene Geodaten machen Karten für viele Anwendungen nutzbar. Wenn Menschen ihr lokales Wissen einbringen, können Wege, Orte und wichtige Details Schritt für Schritt ergänzt werden.",
+    "image": "assets/news/offene-karten.svg",
+    "imageAlt": "Kartenmarker und verbundene Punkte auf einer offenen Stadtkarte"
+  }
+]
