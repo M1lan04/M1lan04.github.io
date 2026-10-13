@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f5f5f0">
+  <meta id="meta-theme" name="theme-color" content="#f5f5f0">
   <meta name="description" content="Die persönliche Startseite von Milan.">
   <title>Milan – persönliche Startseite</title>
   <style>
@@ -293,16 +293,307 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    :root {
+      --paper: #f3f7f4;
+      --surface: #fff;
+      --ink: #1b2922;
+      --muted: #5c6d63;
+      --line: #dce6df;
+      --accent: #168b61;
+      --accent-ink: #116747;
+      --accent-soft: #e5f4ec;
+      --shadow: 0 18px 48px rgb(31 69 49 / 8%);
+      color-scheme: light;
+    }
+
+    :root[data-theme="night"] {
+      --paper: #111a16;
+      --surface: #1b2821;
+      --ink: #edf5ef;
+      --muted: #a8b9ae;
+      --line: #34463b;
+      --accent: #61d6a2;
+      --accent-ink: #8be2b9;
+      --accent-soft: #263d32;
+      --shadow: 0 18px 48px rgb(0 0 0 / 20%);
+      color-scheme: dark;
+    }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 50% -20%, rgb(32 181 129 / 11%), transparent 55%),
+        var(--paper);
+      line-height: 1.7;
+      transition: background-color 220ms ease, color 220ms ease;
+    }
+
+    .page {
+      width: min(100% - 2.5rem, 1040px);
+    }
+
+    .site-header {
+      position: relative;
+      padding-block: 1.1rem;
+    }
+
+    .wordmark {
+      font-size: 1.05rem;
+      letter-spacing: -0.04em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .site-header nav {
+      gap: 0.35rem;
+      padding: 0.3rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      box-shadow: 0 4px 16px rgb(32 42 38 / 5%);
+    }
+
+    .site-header nav button,
+    .theme-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 2.6rem;
+      border: 0;
+      border-radius: 999px;
+      font: inherit;
+      font-size: 0.87rem;
+      font-weight: 650;
+      cursor: pointer;
+      transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .site-header nav button {
+      padding: 0.55rem 1rem;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .site-header nav button[aria-selected="true"] {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 3px 10px rgb(22 139 97 / 20%);
+    }
+
+    .site-header nav button:hover:not([aria-selected="true"]) {
+      background: var(--accent-soft);
+      color: var(--accent-ink);
+    }
+
+    .theme-toggle {
+      padding: 0.55rem 0.9rem;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .theme-toggle:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    .theme-toggle svg {
+      width: 1rem;
+      height: 1rem;
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    .theme-toggle .sun-icon {
+      display: none;
+    }
+
+    :root[data-theme="night"] .theme-toggle .moon-icon {
+      display: none;
+    }
+
+    :root[data-theme="night"] .theme-toggle .sun-icon {
+      display: block;
+    }
+
+    main {
+      padding-block: clamp(2rem, 5vw, 4rem);
+    }
+
+    .intro {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: clamp(2rem, 5vw, 3.5rem);
+      padding: clamp(2rem, 6vw, 4rem);
+      border: 1px solid var(--line);
+      border-radius: 1.75rem;
+      background: linear-gradient(135deg, var(--surface), var(--accent-soft));
+      box-shadow: var(--shadow);
+    }
+
+    .intro::after {
+      position: absolute;
+      right: -4rem;
+      bottom: -8rem;
+      width: 20rem;
+      height: 20rem;
+      border: 1px solid rgb(22 139 97 / 15%);
+      border-radius: 50%;
+      content: "";
+      box-shadow: 0 0 0 2rem rgb(22 139 97 / 4%), 0 0 0 4rem rgb(22 139 97 / 3%);
+      pointer-events: none;
+    }
+
+    .intro-copy {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+    }
+
+    .intro-copy p:not(.eyebrow) {
+      max-width: 62ch;
+    }
+
+    .eyebrow,
+    .section-label {
+      color: var(--accent-ink);
+    }
+
+    section[role="tabpanel"] {
+      padding: clamp(1.5rem, 5vw, 3rem);
+      border: 1px solid var(--line);
+      border-radius: 1.75rem;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    section[role="tabpanel"][hidden] {
+      display: none;
+    }
+
+    section[role="tabpanel"].is-active {
+      animation: panel-enter 320ms cubic-bezier(.2, .75, .25, 1) both;
+    }
+
+    @keyframes panel-enter {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .table-wrap {
+      border-radius: 1rem;
+      background: var(--surface);
+    }
+
+    tbody tr:hover {
+      background: var(--accent-soft);
+    }
+
+    .gallery {
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border-radius: 1.15rem;
+      box-shadow: 0 8px 24px rgb(32 42 38 / 7%);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 32px rgb(32 42 38 / 13%);
+    }
+
+    .card figure {
+      background: var(--accent-soft);
+    }
+
+    .site-footer {
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 700px) {
+      .site-header {
+        align-items: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .page {
+        width: min(100% - 1.25rem, 1040px);
+      }
+
+      .header-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+      }
+
+      .site-header nav {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .site-header nav button {
+        padding-inline: 0.5rem;
+      }
+
+      .theme-toggle {
+        align-self: flex-end;
+      }
+
+      .intro,
+      section[role="tabpanel"] {
+        border-radius: 1.25rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      section[role="tabpanel"].is-active {
+        animation: none;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="page">
     <header class="site-header">
       <a class="wordmark" href="#start">Milan</a>
-      <nav aria-label="Hauptnavigation">
-        <a href="#weg">Mein Weg</a>
-        <a href="#lieblingsorte">Lieblingsorte</a>
-      </nav>
+      <div class="header-actions">
+        <nav aria-label="Inhaltsbereiche" role="tablist">
+          <button id="tab-weg" type="button" role="tab" aria-selected="true" aria-controls="weg" tabindex="0">Mein Weg</button>
+          <button id="tab-orte" type="button" role="tab" aria-selected="false" aria-controls="lieblingsorte" tabindex="-1">Lieblingsorte</button>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Nachtmodus aktivieren" aria-pressed="false">
+          <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 14.2A8.7 8.7 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z"/></svg>
+          <svg class="sun-icon" aria-hidden="true" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+          <span>Nachtmodus</span>
+        </button>
+      </div>
     </header>
 
     <main id="start">
@@ -315,7 +606,7 @@
         </div>
       </div>
 
-      <section id="weg" aria-labelledby="weg-titel">
+      <section id="weg" role="tabpanel" aria-labelledby="tab-weg" tabindex="0" class="is-active">
         <p class="section-label">Ein kurzer Überblick</p>
         <h2 id="weg-titel">Mein Weg</h2>
         <p class="section-intro">Sechs kleine Wegmarken – die Angaben kannst du einfach durch deine eigenen Stationen ersetzen.</p>
@@ -342,7 +633,7 @@
         </div>
       </section>
 
-      <section id="lieblingsorte" aria-labelledby="orte-titel">
+      <section id="lieblingsorte" role="tabpanel" aria-labelledby="tab-orte" tabindex="0" hidden>
         <p class="section-label">Zum Weiterstöbern</p>
         <h2 id="orte-titel">Draußen &amp; online</h2>
         <p class="section-intro">Drei offene Türen zu Karten, Landschaften und Bildern unserer Erde.</p>
@@ -412,5 +703,48 @@
       <p>Mit Ruhe gestaltet · Milan · <span id="jahr">2026</span></p>
     </footer>
   </div>
+  <script>
+    const themeToggle = document.querySelector("#theme-toggle");
+    const themeLabel = themeToggle.querySelector("span");
+    const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const panels = tabs.map((tab) => document.getElementById(tab.getAttribute("aria-controls")));
+    const themeColor = document.querySelector("#meta-theme");
+
+    themeToggle.addEventListener("click", () => {
+      const isNight = document.documentElement.dataset.theme !== "night";
+      document.documentElement.dataset.theme = isNight ? "night" : "light";
+      themeToggle.setAttribute("aria-pressed", String(isNight));
+      themeToggle.setAttribute("aria-label", isNight ? "Lightmodus aktivieren" : "Nachtmodus aktivieren");
+      themeLabel.textContent = isNight ? "Lightmodus" : "Nachtmodus";
+      themeColor.content = isNight ? "#111a16" : "#f3f7f4";
+    });
+
+    function activateTab(activeTab, moveFocus = false) {
+      tabs.forEach((tab, index) => {
+        const isSelected = tab === activeTab;
+        tab.setAttribute("aria-selected", String(isSelected));
+        tab.tabIndex = isSelected ? 0 : -1;
+        panels[index].hidden = !isSelected;
+        panels[index].classList.toggle("is-active", isSelected);
+      });
+
+      if (moveFocus) activeTab.focus();
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => activateTab(tab));
+      tab.addEventListener("keydown", (event) => {
+        let nextIndex;
+        if (event.key === "ArrowRight") nextIndex = (index + 1) % tabs.length;
+        if (event.key === "ArrowLeft") nextIndex = (index - 1 + tabs.length) % tabs.length;
+        if (event.key === "Home") nextIndex = 0;
+        if (event.key === "End") nextIndex = tabs.length - 1;
+        if (nextIndex !== undefined) {
+          event.preventDefault();
+          activateTab(tabs[nextIndex], true);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
