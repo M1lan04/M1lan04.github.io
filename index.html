@@ -91,10 +91,6 @@
       padding-block: clamp(2rem, 6vw, 5rem);
     }
 
-    .intro {
-      padding-bottom: clamp(3rem, 8vw, 6rem);
-    }
-
     .eyebrow,
     .section-label {
       margin: 0 0 0.85rem;
@@ -429,41 +425,45 @@
       padding-block: clamp(2rem, 5vw, 4rem);
     }
 
-    .intro {
-      position: relative;
-      overflow: hidden;
-      margin-bottom: clamp(2rem, 5vw, 3.5rem);
-      padding: clamp(2rem, 6vw, 4rem);
-      border: 1px solid var(--line);
-      border-radius: 1.75rem;
-      background: linear-gradient(135deg, var(--surface), var(--accent-soft));
-      box-shadow: var(--shadow);
-    }
-
-    .intro::after {
-      position: absolute;
-      right: -4rem;
-      bottom: -8rem;
-      width: 20rem;
-      height: 20rem;
-      border: 1px solid rgb(22 139 97 / 15%);
-      border-radius: 50%;
-      content: "";
-      box-shadow: 0 0 0 2rem rgb(22 139 97 / 4%), 0 0 0 4rem rgb(22 139 97 / 3%);
-      pointer-events: none;
-    }
-
-    .intro-copy {
-      position: relative;
-      z-index: 1;
-    }
-
     h1 {
       font-size: clamp(3.5rem, 10vw, 6.5rem);
     }
 
     .intro-copy p:not(.eyebrow) {
       max-width: 62ch;
+    }
+
+    .about-profile {
+      display: grid;
+      grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 2fr);
+      align-items: center;
+      gap: clamp(1.5rem, 5vw, 3rem);
+      margin-bottom: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .portrait-placeholder {
+      display: grid;
+      min-height: 16rem;
+      margin: 0;
+      place-items: center;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 1.25rem;
+      background: linear-gradient(145deg, var(--accent-soft), var(--surface));
+      color: var(--accent-ink);
+      text-align: center;
+    }
+
+    .portrait-placeholder svg {
+      width: min(65%, 10rem);
+      height: auto;
+      color: var(--accent);
+    }
+
+    .portrait-placeholder figcaption {
+      padding: 0 1rem 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
     }
 
     .eyebrow,
@@ -555,20 +555,30 @@
 
       .site-header nav {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .site-header nav button {
         padding-inline: 0.5rem;
+        font-size: 0.78rem;
       }
 
       .theme-toggle {
         align-self: flex-end;
       }
 
-      .intro,
       section[role="tabpanel"] {
         border-radius: 1.25rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .about-profile {
+        grid-template-columns: 1fr;
+      }
+
+      .portrait-placeholder {
+        min-height: 13rem;
       }
     }
 
@@ -585,8 +595,9 @@
       <a class="wordmark" href="#start">Milan</a>
       <div class="header-actions">
         <nav aria-label="Inhaltsbereiche" role="tablist">
-          <button id="tab-weg" type="button" role="tab" aria-selected="true" aria-controls="weg" tabindex="0">Mein Weg</button>
-          <button id="tab-orte" type="button" role="tab" aria-selected="false" aria-controls="lieblingsorte" tabindex="-1">Lieblingsorte</button>
+          <button id="tab-about" type="button" role="tab" aria-selected="true" aria-controls="about" tabindex="0">About</button>
+          <button id="tab-news" type="button" role="tab" aria-selected="false" aria-controls="news" tabindex="-1">News</button>
+          <button id="tab-projects" type="button" role="tab" aria-selected="false" aria-controls="projects" tabindex="-1">Projects</button>
         </nav>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Nachtmodus aktivieren" aria-pressed="false">
           <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 14.2A8.7 8.7 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z"/></svg>
@@ -597,16 +608,24 @@
     </header>
 
     <main id="start">
-      <div class="intro">
-        <div class="intro-copy">
-          <p class="eyebrow">Hallo, ich bin</p>
-          <h1>Milan</h1>
-          <p>Ich interessiere mich dafür, wie Menschen ihre Umgebung wahrnehmen und gestalten. Besonders gern verbinde ich Neugier, gute Fragen und einen Blick für die Details.</p>
-          <p>Hier sammle ich ein paar Stationen meines Wegs und Orte, die mich inspirieren. Schön, dass du vorbeischaust.</p>
+      <section id="about" role="tabpanel" aria-labelledby="tab-about" tabindex="0" class="is-active">
+        <div class="about-profile">
+          <figure class="portrait-placeholder">
+            <svg viewBox="0 0 200 200" role="img" aria-labelledby="portrait-title" xmlns="http://www.w3.org/2000/svg">
+              <title id="portrait-title">Platzhalter für ein persönliches Foto</title>
+              <circle cx="100" cy="67" r="35" fill="currentColor" opacity=".75"/>
+              <path d="M34 184c4-39 30-63 66-63s62 24 66 63" fill="currentColor" opacity=".55"/>
+            </svg>
+            <figcaption>Hier ein persönliches Foto ergänzen</figcaption>
+          </figure>
+          <div class="intro-copy">
+            <p class="eyebrow">Hallo, ich bin</p>
+            <h1>Milan</h1>
+            <p>Ich interessiere mich dafür, wie Menschen ihre Umgebung wahrnehmen und gestalten. Besonders gern verbinde ich Neugier, gute Fragen und einen Blick für die Details.</p>
+            <p>Hier sammle ich ein paar Stationen meines Wegs. Schön, dass du vorbeischaust.</p>
+          </div>
         </div>
-      </div>
 
-      <section id="weg" role="tabpanel" aria-labelledby="tab-weg" tabindex="0" class="is-active">
         <p class="section-label">Ein kurzer Überblick</p>
         <h2 id="weg-titel">Mein Weg</h2>
         <p class="section-intro">Sechs kleine Wegmarken – die Angaben kannst du einfach durch deine eigenen Stationen ersetzen.</p>
@@ -633,9 +652,9 @@
         </div>
       </section>
 
-      <section id="lieblingsorte" role="tabpanel" aria-labelledby="tab-orte" tabindex="0" hidden>
+      <section id="projects" role="tabpanel" aria-labelledby="tab-projects" tabindex="0" hidden>
         <p class="section-label">Zum Weiterstöbern</p>
-        <h2 id="orte-titel">Draußen &amp; online</h2>
+        <h2 id="orte-titel">Lieblingsorte</h2>
         <p class="section-intro">Drei offene Türen zu Karten, Landschaften und Bildern unserer Erde.</p>
         <div class="gallery">
           <a class="card" href="https://www.openstreetmap.org/" target="_blank" rel="noopener noreferrer">
@@ -696,6 +715,10 @@
             </div>
           </a>
         </div>
+      </section>
+
+      <section id="news" role="tabpanel" aria-labelledby="tab-news" tabindex="0" hidden>
+        <h2>News</h2>
       </section>
     </main>
 
