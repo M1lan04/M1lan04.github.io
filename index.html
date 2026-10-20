@@ -136,6 +136,10 @@
       color: var(--muted);
     }
 
+    .project-maps-label {
+      margin-top: 3rem;
+    }
+
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -225,6 +229,13 @@
       width: 100%;
       height: auto;
       aspect-ratio: 16 / 10;
+    }
+
+    .map-preview {
+      display: block;
+      width: 100%;
+      height: clamp(14rem, 30vw, 20rem);
+      border: 0;
     }
 
     .card-copy {
@@ -707,6 +718,55 @@
               <p>Auskunft zum Liegenschaftskataster, zu Vermessungen und Geobasisdaten in der Westpfalz.</p>
             </div>
           </a>
+        </div>
+
+        <p class="section-label project-maps-label">Eigene Arbeiten</p>
+        <h2 id="karten-titel">Interaktive Karten</h2>
+        <p class="section-intro">Vier Kartenprojekte aus der Geoinformatik – direkt hier erkunden oder einzeln öffnen.</p>
+        <div class="gallery">
+          <article class="card">
+            <figure>
+              <iframe class="map-preview" src="map_1_basiskarte.html" title="Interaktive Basiskarte" loading="lazy"></iframe>
+            </figure>
+            <div class="card-copy">
+              <h3>Basiskarte</h3>
+              <p>Eine einfache Übersichtskarte mit OpenStreetMap-Kartendaten.</p>
+              <p><a href="map_1_basiskarte.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure>
+              <iframe class="map-preview" src="map_2_punkte.html" title="Interaktive Karte mit Punkten" loading="lazy"></iframe>
+            </figure>
+            <div class="card-copy">
+              <h3>Punkte auf der Karte</h3>
+              <p>Eine Karte mit einem markierten Ort und zugehörigen Informationen.</p>
+              <p><a href="map_2_punkte.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure>
+              <iframe class="map-preview" src="map_3_reiseroute.html" title="Interaktive Karte mit Reiseroute" loading="lazy"></iframe>
+            </figure>
+            <div class="card-copy">
+              <h3>Reiseroute</h3>
+              <p>Eine eingezeichnete Route mit Stationen und Zusatzinformationen.</p>
+              <p><a href="map_3_reiseroute.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure>
+              <iframe class="map-preview" src="map_4_flaechen_online.html" title="Interaktive Karte mit Länderflächen" loading="lazy"></iframe>
+            </figure>
+            <div class="card-copy">
+              <h3>Flächen online</h3>
+              <p>Eine interaktive Flächenkarte mit Ländernamen und auswählbaren Kartendarstellungen.</p>
+              <p><a href="map_4_flaechen_online.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
+            </div>
+          </article>
         </div>
       </section>
 
