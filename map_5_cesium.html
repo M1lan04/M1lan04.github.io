@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interaktive Cesium-Karte mit dem bundesweiten 3D-Gebäudelayer von basemap.de.">
+  <title>3D-Gebäude Deutschland – Cesium</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.137/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <style>
+    html,
+    body,
+    #cesiumContainer {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    .map-info {
+      position: absolute;
+      z-index: 1;
+      top: 1rem;
+      left: 1rem;
+      max-width: min(26rem, calc(100% - 2rem));
+      padding: 0.85rem 1rem;
+      border: 1px solid rgb(220 230 223 / 90%);
+      border-radius: 0.85rem;
+      background: rgb(255 255 255 / 94%);
+      color: #1b2922;
+      box-shadow: 0 8px 24px rgb(32 42 38 / 15%);
+      line-height: 1.5;
+    }
+
+    .map-info h1 {
+      margin: 0 0 0.35rem;
+      font-size: 1rem;
+    }
+
+    .map-info p {
+      margin: 0;
+      font-size: 0.82rem;
+    }
+
+    .map-info a {
+      color: #116747;
+    }
+
+    #map-status {
+      margin-top: 0.5rem;
+      color: #5c6d63;
+    }
+
+    #map-status[data-error="true"] {
+      color: #9b2c20;
+    }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer" aria-label="Interaktive 3D-Karte von Deutschland"></div>
+  <aside class="map-info">
+    <h1>3D-Gebäude Deutschland</h1>
+    <p>Bundesweiter LoD2-Gebäudelayer von <a href="https://basemap.de/produkte-und-dienste/3d/" target="_blank" rel="noopener noreferrer">basemap.de</a>. Mit der Maus drehen, zoomen und verschieben.</p>
+    <p id="map-status" role="status" aria-live="polite">3D-Gebäudedaten werden geladen …</p>
+  </aside>
+
+  <script>
+    const statusElement = document.querySelector("#map-status");
+
+    function showError(message) {
+      statusElement.textContent = message;
+      statusElement.dataset.error = "true";
+    }
+
+    const viewer = new Cesium.Viewer("cesiumContainer", {
+      animation: false,
+      baseLayer: false,
+      baseLayerPicker: false,
+      geocoder: false,
+      homeButton: true,
+      sceneModePicker: false,
+      timeline: false,
+      navigationHelpButton: true,
+      shadows: false,
+    });
+
+    viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+      url: "https://sgx.geodatenzentrum.de/wms_basemapde",
+      layers: "de_basemapde_web_raster_farbe",
+      parameters: {
+        format: "image/png",
+        transparent: false,
+      },
+      credit: new Cesium.Credit(
+        '<a href="https://basemap.de/produkte-und-dienste/" target="_blank" rel="noopener noreferrer">basemap.de / GeoBasis-DE</a>',
+        true,
+      ),
+    }));
+
+    viewer.camera.flyTo({
+      destination: Cesium.Cartesian3.fromDegrees(8.227264, 49.988478, 800),
+      orientation: {
+        heading: Cesium.Math.toRadians(0),
+        pitch: Cesium.Math.toRadians(-48),
+        roll: 0,
+      },
+    });
+
+    async function loadBuildings() {
+      try {
+        const tileset = await Cesium.Cesium3DTileset.fromUrl(
+          "https://sgx.geodatenzentrum.de/gdz_basemapde_3d_gebaeude/lod2_4326_null.json",
+          { showOutline: false },
+        );
+        tileset.tileLoad.addEventListener(() => {
+          statusElement.textContent = "LoD2-Gebäude werden angezeigt.";
+          delete statusElement.dataset.error;
+        });
+        tileset.tileFailed.addEventListener((event) => {
+          console.error("Ein Gebäudetile konnte nicht geladen werden.", event.message);
+          showError("Ein Teil des 3D-Gebäudelayers konnte nicht geladen werden.");
+        });
+        viewer.scene.primitives.add(tileset);
+        tileset.style = new Cesium.Cesium3DTileStyle({
+          color: {
+            conditions: [
+              ["${surface} === 'wall'", "color('#f2f2f2')"],
+              ["${surface} === 'roof'", "color('#e76f51')"],
+              ["${surface} === 'bridge'", "color('#999999')"],
+            ],
+          },
+        });
+        statusElement.textContent = "Layer bereit. Zoomen Sie näher heran, um Gebäude zu laden.";
+      } catch (error) {
+        console.error("Der basemap.de-Gebäudelayer konnte nicht geladen werden.", error);
+        showError("Der 3D-Gebäudelayer konnte nicht geladen werden. Bitte später erneut versuchen.");
+      }
+    }
+
+    loadBuildings();
+  </script>
+</body>
+</html>

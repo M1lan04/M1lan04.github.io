@@ -136,10 +136,6 @@
       color: var(--muted);
     }
 
-    .project-maps-label {
-      margin-top: 3rem;
-    }
-
     .table-wrap {
       overflow-x: auto;
       border: 1px solid var(--line);
@@ -544,6 +540,7 @@
           <button id="tab-about" type="button" role="tab" aria-selected="true" aria-controls="about" tabindex="0">About</button>
           <button id="tab-news" type="button" role="tab" aria-selected="false" aria-controls="news" tabindex="-1">News</button>
           <button id="tab-projects" type="button" role="tab" aria-selected="false" aria-controls="projects" tabindex="-1">Projects</button>
+          <button id="tab-maps" type="button" role="tab" aria-selected="false" aria-controls="maps" tabindex="-1">Karten</button>
         </nav>
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Nachtmodus aktivieren" aria-pressed="false">
           <svg class="moon-icon" aria-hidden="true" viewBox="0 0 24 24"><path d="M20.5 14.2A8.7 8.7 0 0 1 9.8 3.5 8.8 8.8 0 1 0 20.5 14.2Z"/></svg>
@@ -587,8 +584,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr><td>2026</td><td>Neues Kapitel</td><td>[Ort]</td><td>Neugier</td></tr>
-              <tr><td>2025</td><td>Studium &amp; Projekte</td><td>[Ort]</td><td>Entdecken</td></tr>
+              <tr><td>2024-Jetzt</td><td>Studium</td><td>Mainz</td><td>University of Applied Sciences Mainz</td></tr>
               <tr><td>2024</td><td>Ein Perspektivwechsel</td><td>[Ort]</td><td>Aufbrechen</td></tr>
               <tr><td>2023</td><td>Erste eigene Ideen</td><td>[Ort]</td><td>Ausprobieren</td></tr>
               <tr><td>2022</td><td>Neue Wege</td><td>[Ort]</td><td>Lernen</td></tr>
@@ -720,9 +716,12 @@
           </a>
         </div>
 
-        <p class="section-label project-maps-label">Eigene Arbeiten</p>
+      </section>
+
+      <section id="maps" role="tabpanel" aria-labelledby="tab-maps" tabindex="0" hidden>
+        <p class="section-label">Eigene Arbeiten</p>
         <h2 id="karten-titel">Interaktive Karten</h2>
-        <p class="section-intro">Vier Kartenprojekte aus der Geoinformatik – direkt hier erkunden oder einzeln öffnen.</p>
+        <p class="section-intro">Fünf Kartenprojekte aus der Geoinformatik zum entdecken.</p>
         <div class="gallery">
           <article class="card">
             <figure>
@@ -740,7 +739,7 @@
               <iframe class="map-preview" src="map_2_punkte.html" title="Interaktive Karte mit Punkten" loading="lazy"></iframe>
             </figure>
             <div class="card-copy">
-              <h3>Punkte auf der Karte</h3>
+              <h3>Hauptstädte in Europa</h3>
               <p>Eine Karte mit einem markierten Ort und zugehörigen Informationen.</p>
               <p><a href="map_2_punkte.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
             </div>
@@ -762,9 +761,20 @@
               <iframe class="map-preview" src="map_4_flaechen_online.html" title="Interaktive Karte mit Länderflächen" loading="lazy"></iframe>
             </figure>
             <div class="card-copy">
-              <h3>Flächen online</h3>
+              <h3>Länder welche ich besucht habe</h3>
               <p>Eine interaktive Flächenkarte mit Ländernamen und auswählbaren Kartendarstellungen.</p>
               <p><a href="map_4_flaechen_online.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
+            </div>
+          </article>
+
+          <article class="card">
+            <figure>
+              <iframe class="map-preview" src="map_5_cesium.html" title="3D-Gebäude Deutschland mit Cesium" loading="lazy"></iframe>
+            </figure>
+            <div class="card-copy">
+              <h3>3D-Gebäude Deutschland</h3>
+              <p>Bundesweiter LoD2-Gebäudelayer von basemap.de, dargestellt mit Cesium.</p>
+              <p><a href="map_5_cesium.html" target="_blank" rel="noopener noreferrer">Karte einzeln öffnen</a></p>
             </div>
           </article>
         </div>
